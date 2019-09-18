@@ -1,0 +1,8 @@
+{
+  "port": 8000,
+  "mongoUri": "mongodb://localhost:27017/ecommerce",
+  "tokenSecret": "my-token-secret",
+  "refreshTokenSecret": "my-refresh-token-secret",
+  "tokenLife": 3600,
+  "refreshTokenLife": 86400
+}
