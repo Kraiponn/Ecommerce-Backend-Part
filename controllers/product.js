@@ -70,10 +70,10 @@ exports.fetchById = async (req, res, next) => {
  * we will make api requst and show the products to users based on what he wants
 */
 exports.fetchBySearch = async (req, res, next) => {
-  let orderBy = req.query.orderby ? req.query.orderby : 'desc';
-  let sortBy = req.query.sortby ? req.query.sortby : "_id";
-  let limit = req.query.limit ? parseInt(req.query.limit) : 100;
-  let skip = parseInt(req.query.skip);
+  let orderBy = req.body.orderby ? req.body.orderby : 'desc';
+  let sortBy = req.body.sortby ? req.body.sortby : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
   let findArgs = {};
 
   try{

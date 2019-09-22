@@ -38,7 +38,16 @@ app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const msg = error.message;
   const data = error.data;
-  res.status(status).json({ error: msg, data: data });
+  // res.status(status).json({ 
+  //   error: msg,
+  //   data: data
+  // });
+  res.status(status).json({ 
+    errors: {
+      msg: msg,
+      data: data
+    } 
+  });
 });
 
 
