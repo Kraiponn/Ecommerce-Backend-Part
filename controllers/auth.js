@@ -31,7 +31,7 @@ exports.signup = async (req, res, next) => {
     const docUser = await user.save();
     res.status(201).json({ 
       msg: 'Created new user successfully.',
-      user: docUser
+      data: docUser
    });
   } catch(err){
     if(!err.statusCode){
@@ -95,7 +95,9 @@ exports.signin = async (req, res, next) => {
     tokenList[refreshToken] = resp;
     tokenList['others'] = 'my name is ksn-development';
 
-    res.status(200).json(resp);
+    res.status(200).json({
+      data: resp
+    });
   }catch(err){
     if(!err.statusCode){
       err.statusCode = 500;
@@ -110,7 +112,7 @@ exports.signout = (req, res, next) => {
 
   // console.log(tokenList[postData.refreshToken].refreshToken);
   // console.log(tokenList[postData.refreshToken].token);
-  console.log(tokenList);
+  // console.log(tokenList);
   res
     .status(200)
     .json({ 
@@ -134,7 +136,7 @@ exports.token = (req, res, next) => {
 
     tokenList[postData.refreshToken].token = token;
     res.status(200).json({
-      token: token
+      data: token
     });
   }
 }

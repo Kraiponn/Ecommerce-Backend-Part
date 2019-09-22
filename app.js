@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
+const config = require('config');
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // Import Route
 const authRoutes = require('./routes/auth');
@@ -15,16 +17,21 @@ const productRoute = require('./routes/product');
 // App
 const app = express();
 
+
 // Middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/picture', express.static(path.join(__dirname, 'uploads')));
+
 
 // Routes Middlewares
-app.use("/api", authRoutes);
-app.use("/api", userRoutes);
-app.use("/api", categoryRoute);
-app.use("/api", productRoute);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/category", categoryRoute);
+app.use("/api/product", productRoute);
 
 // Handler Error
 app.use((error, req, res, next) => {
@@ -35,10 +42,10 @@ app.use((error, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 8000
+const port = config.get('port') || 8000
 // Connect mongoose
 mongoose
-  .connect(process.env.DATA_BASE, {
+  .connect(config.get('mongoUri'), {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
